@@ -1,0 +1,72 @@
+<div class="container">
+    {{123456 | mobilePatern}}
+    <form [formGroup]="registerForm" class="row g-3" (ngSubmit)="onSubmitregisterForm()">
+        <div class="col-md-6">
+            <label for="inputfirstname" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="inputfirstname" formControlName="firstName" appAlphaNumeric>
+            <div *ngIf="submitted && (registerForm.get('firstName')?.invalid)"  style="color: red;">
+                Please Enter a username.
+              </div>
+        </div>
+        <div class="col-md-6">
+            <label for="inputlastname" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="inputlastname" formControlName="lasttName">
+        </div>
+        <div class="col-12">
+            <label for="inputEmail4" class="form-label">Email</label>
+            <input type="email" class="form-control" id="inputEmail4" formControlName="email">
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword4" formControlName="password">
+            <div *ngIf="registerForm.get('password')?.invalid  "  style="color: red;">
+                Please Enter a username.
+              </div>
+              <div *ngIf="rgFormControls['password'].errors?.['passwordStrength'] ">
+                Passowrd is weak
+                <!-- {{registerForm.get('password').errors?['passwordStrength'] | json}} -->
+              </div>
+        </div>
+        <div class="col-md-6">
+            <label for="inputPassword5" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="inputPassword5" formControlName="confirmPassword">
+       <div style="color:red" *ngIf="rgFormControls['confirmPassword'].errors?.['match']">
+Password miss match
+       </div>
+        </div>
+        <div class="col-12">
+            <label for="inputAddress" class="form-label">Address</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" formControlName="address">
+        </div>
+        <div class="col-12">
+            <label for="inputAddress2" class="form-label">Mobile No:</label>
+            <input type="number" class="form-control" id="inputAddress2" placeholder="" formControlName="mobileNum">
+        </div>
+        <div class="col-md-6">
+            <label for="inputCity" class="form-label">City</label>
+            <input type="text" class="form-control" id="inputCity" formControlName="city">
+        </div>
+        <div class="col-md-4">
+            <label for="inputState" class="form-label">State</label>
+            <select id="inputState" class="form-select" formControlName="state">
+                <option selected>Choose...</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="inputZip" class="form-label">Zip</label>
+            <input type="text" class="form-control" id="inputZip" formControlName="zip">
+        </div>
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" formControlName="checkMeOut">
+                <label class="form-check-label" for="gridCheck" >
+                    Check me out
+                </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
+    </form>
+</div>

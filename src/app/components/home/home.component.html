@@ -1,0 +1,113 @@
+<div>
+
+    <h1> List Of Users using Template ref</h1>
+    <div>
+
+        <span> <button type="button" (click)="onClickAddRecord()"><span *ngIf="!isAddNewRecord">Add Record</span>
+                <span *ngIf="isAddNewRecord">Save Record</span></button> </span>
+        <span> <button type="button" (click)="onClickEditRecord(fName, lName, emailRef)">
+                <span>Update Record</span></button> </span>
+        <span> <button type="button" (click)="onClickDeleteRecord()"><span>Delete Record</span>
+            </button> </span>
+
+    </div>
+    <br>
+    <div>
+        <table id="tbale1">
+            <!-- <thead> -->
+            <tr>
+                <!-- <th></th> -->
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+            <!-- </thead> -->
+            <tbody>
+                <tr *ngFor="let user of userList; let i=index" (click)="onRowSelect(user)">
+                    <!-- <td><img [src]="user.avatar"/></td>  -->
+                    <td>
+                        <span *ngIf="user.editRow"> <input #fName autofocus [value]="user.first_name"
+                                type="text" /></span>
+                        <span *ngIf="!user.editRow ">{{user.first_name}}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!user.editRow">{{user.last_name}}</span>
+                        <span *ngIf="user.editRow"> <input #lName type="text" [value]="user.last_name"
+                                name="last_name" /></span>
+                    </td>
+                    <td>
+                        <span *ngIf="!user.editRow">{{user.email}}</span>
+                        <span *ngIf="user.editRow"> <input #emailRef type="text" [value]="user.email"
+                                name="email" /></span>
+                    </td>
+                </tr>
+                <tr *ngIf="isAddNewRecord">
+                    <td>
+                        <input type="text" [(ngModel)]="firstName" />
+                    </td>
+                    <td><input type="text" [(ngModel)]="lastName" /></td>
+                    <td><input type="text" [(ngModel)]="email" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<br>
+<h1> List Of Users using form Array </h1>
+
+    <form [formGroup]="userForm">
+
+    <div>
+
+        <span> <button type="button" (click)="onClickAddRecordForm1()"><span *ngIf="!isAddNewRecord">Add Record</span>
+                <span *ngIf="isAddNewRecord">Save Record</span></button> </span> &nbsp;
+        <span> <button type="button" (click)="onClickUpdateRecord()">
+                <span>Update Record</span></button> </span> &nbsp;
+        <span> <button type="button" (click)="onClickDeleteRecord1()"><span>Delete Record</span>
+            </button> </span>
+
+    </div>
+    <br>
+
+    <div>
+        <table id="tbale2">
+            <thead >
+            <tr >
+                <th (click)="tableSort('id')"></th>
+                <th  (click)="tableSort('first_name')">First Name</th>
+                <th (click)="tableSort('last_name')">Last Name</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr formArrayName="users" *ngFor="let user of userList1; let i=index" (click)="onRowSelect1(user)">
+                    <ng-container #gpId [formGroupName]="i">
+                     <td>{{user.id}}</td> 
+                    <td>
+                        <span *ngIf="user.editRow"> <input  autofocus formControlName="first_name" value="{{user.first_name}}"
+                                type="text" /></span>
+                        <span *ngIf="!user.editRow ">{{user.first_name}}</span>
+                    </td>
+                    <td>
+                        <span *ngIf="!user.editRow">{{user.last_name}}</span>
+                        <span *ngIf="user.editRow"> <input  type="text" formControlName="last_name" [value]="user.last_name"
+                                name="last_name" /></span>
+                    </td>
+                    <td>
+                        <span *ngIf="!user.editRow">{{user.email}}</span>
+                        <span *ngIf="user.editRow"> <input  type="text" formControlName="email" [value]="user.email"
+                                name="email" /></span>
+                    </td>
+                </ng-container>
+                </tr>
+                <tr *ngIf="isAddNewRecord">
+                    <td>
+                        <input type="text" [(ngModel)]="firstName" [ngModelOptions]="{standalone: true}"/>
+                    </td>
+                    <td><input type="text" [(ngModel)]="lastName" [ngModelOptions]="{standalone: true}"/></td>
+                    <td><input type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"/></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+</div>
